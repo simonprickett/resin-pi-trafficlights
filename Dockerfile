@@ -1,13 +1,8 @@
-FROM debian:jessie 
+FROM resin/raspberry-pi-python:latest
 
-RUN apt-get -q update \
-    && apt-get -qy install \
-	python \
-	python-pip \
-    && rm -rf /var/lib/apt/lists/*
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
 
 COPY . /app
-
-RUN pip install -r /app/requirements.txt 
 
 CMD ["python", "/app/trafficlightsfsm.py"]
